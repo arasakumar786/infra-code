@@ -3,6 +3,10 @@ resource "aws_eks_cluster" "trend_store_production" {
   role_arn = var.cluster_role_arn
   version  = var.cluster_version
 
+  access_config {
+    authentication_mode = "API_AND_CONFIG_MAP"
+  }
+
   vpc_config {
     subnet_ids         = var.subnet_ids
     security_group_ids = [var.security_group_id]
@@ -74,4 +78,20 @@ resource "aws_eks_node_group" "trend_store_production" {
   depends_on = [
     aws_eks_cluster.trend_store_production
   ]
+}
+
+resource "aws_eks_access_entry" "admin" {
+  cluster_name  = aws_eks_cluster.trend_store_production.name
+  principal_arn = "arn:aws:iam::369559608694:user/EKS"
+}
+
+resource "aws_eks_access_policy_association" "admin" {
+  cluster_name  = aws_eks_cluster.trend_store_production.name
+  principal_arn = aws_eks_access_entry.admin.principal_arn
+
+  policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
 }

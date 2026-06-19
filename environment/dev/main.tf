@@ -1,4 +1,4 @@
-terraform {
+/*terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -71,4 +71,4 @@ module "ec2" {
   subnet_id         = module.vpc.public_subnet_id_1
 
   security_group_id = module.security_group.security_group_id
-}
+}*/

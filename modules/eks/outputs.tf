@@ -22,6 +22,3 @@ output "cluster_certificate_authority" {
 output "node_group_name" {
   value = aws_eks_node_group.trend_store_production.node_group_name
 }
-output "kubeconfig_command" {
-  value = "aws eks update-kubeconfig --name ${aws_eks_cluster.trend_store_production.name} --region ${var.region}"
-}
