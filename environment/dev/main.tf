@@ -18,6 +18,7 @@ module "vpc" {
   cidr_block                  = var.vpc_cidr
   public_subnet_1_cidr_block  = var.public_subnet_1_cidr
   public_subnet_2_cidr_block  = var.public_subnet_2_cidr
+
   private_subnet_1_cidr_block = var.private_subnet_1_cidr
   private_subnet_2_cidr_block = var.private_subnet_2_cidr
   availability_zone_1 = var.availability_zone_1
