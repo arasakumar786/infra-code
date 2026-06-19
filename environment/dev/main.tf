@@ -23,7 +23,7 @@ module "vpc" {
   private_subnet_2_cidr_block = var.private_subnet_2_cidr
   availability_zone_1 = var.availability_zone_1
   availability_zone_2 = var.availability_zone_2
-  cluster_name = var.cluster_name 
+  cluster_name = var.cluster_name
 }
 module "security_group" {
   source = "../../modules/security-group"
@@ -58,7 +58,7 @@ module "eks" {
   desired_size      = var.desired_size
   min_size          = var.min_size
   max_size          = var.max_size
-  
+
 }
 
 module "ec2" {
