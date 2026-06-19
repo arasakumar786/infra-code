@@ -17,44 +17,51 @@ resource "aws_eks_cluster" "trend_store_production" {
 }
 resource "aws_eks_addon" "vpc_cni" {
   cluster_name = aws_eks_cluster.trend_store_production.name
+  addon_name   = "vpc-cni"
 
-  addon_name = "vpc-cni"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
 
   depends_on = [
-    aws_eks_node_group.trend_store_production
+    aws_eks_cluster.trend_store_production
   ]
 }
 
 resource "aws_eks_addon" "coredns" {
   cluster_name = aws_eks_cluster.trend_store_production.name
+  addon_name   = "coredns"
 
-  addon_name = "coredns"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
 
   depends_on = [
-    aws_eks_node_group.trend_store_production
+    aws_eks_node_group.trend_store_production   # coredns pods need nodes to schedule on
   ]
 }
 
 resource "aws_eks_addon" "kube_proxy" {
   cluster_name = aws_eks_cluster.trend_store_production.name
+  addon_name   = "kube-proxy"
 
-  addon_name = "kube-proxy"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
 
   depends_on = [
-    aws_eks_node_group.trend_store_production
+    aws_eks_cluster.trend_store_production
   ]
 }
 
 resource "aws_eks_addon" "pod_identity_agent" {
   cluster_name = aws_eks_cluster.trend_store_production.name
+  addon_name   = "eks-pod-identity-agent"
 
-  addon_name = "eks-pod-identity-agent"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
 
   depends_on = [
-    aws_eks_node_group.trend_store_production
+    aws_eks_cluster.trend_store_production
   ]
 }
-
 resource "aws_eks_node_group" "trend_store_production" {
   cluster_name    = aws_eks_cluster.trend_store_production.name
   node_group_name = "${var.cluster_name}-nodegroup"

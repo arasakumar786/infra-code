@@ -55,3 +55,11 @@ resource "aws_iam_role_policy_attachment" "cni" {
   role       = aws_iam_role.node_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
+resource "aws_iam_role_policy_attachment" "vpc_resource_controller" {
+  role       = aws_iam_role.eks_cluster_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+}
+resource "aws_iam_role_policy_attachment" "ssm" {
+  role       = aws_iam_role.node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}

@@ -1,4 +1,4 @@
-/*terraform {
+terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -25,6 +25,7 @@ module "vpc" {
   availability_zone_2 = var.availability_zone_2
   cluster_name = var.cluster_name
 }
+
 module "security_group" {
   source = "../../modules/security-group"
 
@@ -71,4 +72,4 @@ module "ec2" {
   subnet_id         = module.vpc.public_subnet_id_1
 
   security_group_id = module.security_group.security_group_id
-}*/
+}
