@@ -87,14 +87,14 @@ resource "aws_eks_node_group" "trend_store_production" {
   ]
 }
 
-resource "aws_eks_access_entry" "admin" {
+resource "aws_eks_access_entry" "root" {
   cluster_name  = aws_eks_cluster.trend_store_production.name
-  principal_arn = "arn:aws:iam::369559608694:user/EKS"
+  principal_arn = "arn:aws:iam::369559608694:root"
 }
 
-resource "aws_eks_access_policy_association" "admin" {
+resource "aws_eks_access_policy_association" "root" {
   cluster_name  = aws_eks_cluster.trend_store_production.name
-  principal_arn = aws_eks_access_entry.admin.principal_arn
+  principal_arn = aws_eks_access_entry.root.principal_arn
 
   policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
 
