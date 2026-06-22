@@ -102,3 +102,18 @@ resource "aws_eks_access_policy_association" "root" {
     type = "cluster"
   }
 }
+resource "aws_eks_access_entry" "EKS" {
+  cluster_name  = aws_eks_cluster.trend_store_production.name
+  principal_arn = "arn:aws:iam::369559608694:user/EKS"
+}
+
+resource "aws_eks_access_policy_association" "EKS" {
+  cluster_name  = aws_eks_cluster.trend_store_production.name
+  principal_arn = aws_eks_access_entry.root.principal_arn
+
+  policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+}
